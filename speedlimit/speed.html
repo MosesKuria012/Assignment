@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speed Chercker</title>
+</head>
+<body>
+    <h1>Speed Checker</h1>
+    <label for="speedCheck">Input the recorded speed:</label>
+    <input type="number" id="speedCheck"/>
+    <button onclick="speedLimitCheck()">Check Speed</button>
+    <p id = "result"></p>
+
+    <script>
+        function speedLimitCheck(){
+            const speed = document.getElementById("speedCheck").value
+            let penaltyPoints = 0
+
+        //the if statement checks to see if the limit is below 70 and prints OK if fulfilled.
+        if (speed < 70){
+            document.getElementById('result').innerHTML('Ok')
+            return
+        }
+
+        //if the speed is above 70 the penalty points are calculated with the math.floor to and divided by 5 to provide the penalty points.
+        
+            penaltyPoints = Math.floor((speed-70)/5)
+
+
+        // the if statement prints sorry mate for those who have above 12 points and will have to re-apply to get their liscence back
+
+        if (penaltyPoints>12){
+            document.getElementById('result').innerHTML = ('Sorry mate, license suspended')
+        } else {
+            document.getElementById('result').innerHTML = (`Points on speed violation: ${penaltyPoints}`)
+        }
+         
+    }
+    </script>
+</body>
+</html>

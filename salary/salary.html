@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Salary Calculator</title>
+</head>
+<body>
+	<h1>Salary Calculator</h1>
+	<label for="basic-salary">Enter the basic salary:</label>
+	<input type="number" id="basic-salary" required>
+	<label for="benefits">Enter the benefits:</label>
+	<input type="number" id="benefits" required>
+	<button onclick="calculateSalary()">Calculate Salary</button>
+	<p>Payee Tax: <span id="payee-tax"></span></p>
+	<p>NHIF Deduction: <span id="nhif-deduction"></span></p>
+	<p>NSSF Deduction: <span id="nssf-deduction"></span></p>
+	<p>Net Salary: <span id="net-salary"></span></p>
+
+    <script>
+    function calculateSalary() {
+  const basicSalary = document.getElementById("basic-salary").value;
+  const benefits = document.getElementById("benefits").value;
+  
+  // Calculate the Payee Tax
+  let payeeTax = 0;
+  if (basicSalary > 24000) {
+    payeeTax = (basicSalary - 24000) * 0.3 + 4000;
+  } else if (basicSalary > 16000) {
+    payeeTax = (basicSalary - 16000) * 0.25 + 2000;
+  } else if (basicSalary > 8000) {
+    payeeTax = (basicSalary - 8000) * 0.2 + 800;
+  } else if (basicSalary > 0) {
+    payeeTax = basicSalary * 0.1;
+  }
+  document.getElementById("payee-tax").innerHTML = payeeTax.toFixed(2);
+
+  // Calculate the NHIF Deduction
+  let nhifDeduction = 0;
+  if (basicSalary + benefits >= 6000) {
+    nhifDeduction = 500;
+  } else if (basicSalary + benefits >= 1500) {
+    nhifDeduction = (basicSalary + benefits) * 0.075;
+  }
+  document.getElementById("nhif-deduction").innerHTML = nhifDeduction.toFixed(2);
+
+  // Calculate the NSSF Deduction
+  const nssfDeduction = Math.min(basicSalary * 0.06, 1080);
+  document.getElementById("nssf-deduction").innerHTML = nssfDeduction.toFixed(2);
+
+  // Calculate the Net Salary
+  const grossSalary = parseFloat(basicSalary) + parseFloat(benefits);
+  const deductions = parseFloat(payeeTax) + parseFloat(nhifDeduction) + parseFloat(nssfDeduction);
+  const netSalary = grossSalary - deductions;
+  document.getElementById("net-salary").innerHTML = netSalary.toFixed(2);
+}
+
+    </script>
+
+</html>
+</body>
+
+
+
